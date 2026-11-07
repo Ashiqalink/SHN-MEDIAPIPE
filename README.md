@@ -11,14 +11,13 @@ The tool is schema-driven. Saves preserve unchanged content byte-for-byte, and t
 
 ### 🌐 Check it out!
 - **Live Website:** [Drop your link here / N/A]
-- **GitHub Repo:** [Drop your repository link here]
+- **GitHub Repo:** https://github.com/Ashiqalink/SHN-MEDIAPIPE
 
 ### 🛠️ What did you use?
 [Tech stack, tools, frameworks, libraries, etc.]
 
 ### 👥 The Humans Behind It
-- [Name – GitHub Username]
-- [Name – GitHub Username]
+- Ashiq Ali N K
 
 ### ⚙️ Hardware Corner
 [What hardware did you use? / N/A]
