@@ -1,0 +1,29 @@
+{
+  "fixtureVersion": 1,
+  "area": "rng",
+  "cases": [
+    {
+      "id": "pcg32-seed42-stream54",
+      "phase": 4,
+      "input": {
+        "algorithm": "pcg32-xsh-rr-v1",
+        "seed": "42",
+        "stream": "54",
+        "draws": 6
+      },
+      "expect": {
+        "initializedState": "1753877967969059832",
+        "increment": "109",
+        "words": [
+          "a15c02b7",
+          "7b47f409",
+          "ba1d3330",
+          "83d2f293",
+          "bfa4784b",
+          "cbed606e"
+        ],
+        "finalState": "13742400798436595530"
+      }
+    }
+  ]
+}

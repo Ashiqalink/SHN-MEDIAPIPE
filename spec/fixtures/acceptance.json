@@ -1,0 +1,24 @@
+{
+  "fixtureVersion": 1,
+  "area": "acceptance",
+  "cases": [
+    {"id": "P0-schema", "phase": 0, "input": {"requirement": "schema format and version decisions"}, "expect": {"contract": "docs/schema-contract.md", "decisions": ["D-02", "D-08"], "status": "recorded"}},
+    {"id": "P0-model", "phase": 0, "input": {"requirement": "ordered spans, references, diagnostics"}, "expect": {"contract": "docs/model-contract.md", "status": "recorded"}},
+    {"id": "P0-evaluation", "phase": 0, "input": {"requirement": "expression scope, numbers, RNG, FR-25"}, "expect": {"contract": "docs/evaluation-contract.md", "decisions": ["D-03", "D-04", "D-05", "D-06", "D-07"], "status": "recorded"}},
+    {"id": "P0-save", "phase": 0, "input": {"requirement": "verification, atomic replace, hash conflicts, preview triggers"}, "expect": {"contract": "docs/save-contract.md", "status": "recorded"}},
+    {"id": "P0-name-and-L7", "phase": 0, "input": {"requirement": "name availability and quest sample cycle meaning"}, "expect": {"contract": "docs/decisions.md", "decisions": ["D-01", "D-10"], "status": "recorded"}},
+    {"id": "P1-load", "phase": 1, "input": {"project": "examples/falling-sand"}, "expect": {"errors": 0, "materialIds": ["sand", "stone", "water", "steam", "glass"], "paletteIds": ["main"]}},
+    {"id": "P1-schema-refusal", "phase": 1, "input": {"mutations": ["unknown keyword", "bad field type", "dangling ref", "cyclic ref", "escaping path", "bad role"]}, "expect": {"editable": false, "diagnostics": true}},
+    {"id": "P1-content-errors", "phase": 1, "input": {"mutations": ["undeclared field", "boolean as number", "duplicate ID", "duplicate key"]}, "expect": {"errors": true, "originalBytesRetained": true}},
+    {"id": "P1-version", "phase": 1, "input": {"historyVersion": "0.9.0", "selectedVersion": "1.0.0"}, "expect": {"code": "schema.version_mismatch", "saveAcknowledgmentRequired": true}},
+    {"id": "P2-spans", "phase": 2, "input": {"sources": ["BOM+CRLF", "tabs", "compact", "no-final-newline", "escaped-Unicode", "exponent-number"], "edits": ["no-op", "scalar", "insert", "delete"]}, "expect": {"noOpByteEquality": true, "onlyOwnedSpansChange": true}},
+    {"id": "P2-verification", "phase": 2, "input": {"faults": ["reparse", "semantic mismatch", "untouched-byte mismatch", "temp write", "replace"]}, "expect": {"originalIntactBeforeReplace": true, "noPartialFile": true}},
+    {"id": "P2-preview", "phase": 2, "input": {"plans": ["first mutation", "two top-level keys", "two files", "override", "later one key", "no-op"]}, "expect": {"previewRequired": [true, true, true, true, false, false]}},
+    {"id": "P2-conflict", "phase": 2, "input": {"events": ["disk changes", "override approved", "disk changes again"]}, "expect": {"statuses": ["save.conflict", "save.preview_required", "save.conflict"], "silentOverwrite": false}},
+    {"id": "P4-unknown", "phase": 4, "input": {"expressions": ["random(0)", "random(1)", "random(0.5)", "false and random(0.5)", "random(0.5) and false"], "mode": "static"}, "expect": {"values": [false, true, "unknown", false, false], "draws": 0}},
+    {"id": "P4-types", "phase": 4, "input": {"expressions": ["1e0 == 1.0", "0.1 < 0.100000000000000000001", "true == 1", "__import__(\"os\")"]}, "expect": {"results": [true, true, "type_error", "parse_error"]}},
+    {"id": "P4-L7", "phase": 4, "input": {"graphs": ["material loop without exit", "material loop with runtime stopping guard", "loop with true stopping guard", "quest-only loop"]}, "expect": {"outcomes": ["fail", "unknown", "pass", "pass"]}},
+    {"id": "P6-FR25", "phase": 6, "input": {"conditions": ["false", "unknown", "true"], "modes": ["static", "concrete"]}, "expect": {"sharedKernel": true, "staticUnknownNotPass": true, "priorityAndEffectsAgree": true}},
+    {"id": "P6-branch", "phase": 6, "input": {"operation": "replay two identical state+RNG snapshots"}, "expect": {"byteIdenticalReports": true, "noReseed": true}}
+  ]
+}

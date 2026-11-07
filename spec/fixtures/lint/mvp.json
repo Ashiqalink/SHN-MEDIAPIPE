@@ -1,0 +1,612 @@
+{
+  "fixtureVersion": 1,
+  "area": "lint",
+  "cases": [
+    {
+      "id": "clean-all-four-pass",
+      "phase": 2,
+      "input": {
+        "contentEdits": [],
+        "schemaEdits": [],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": []
+      }
+    },
+    {
+      "id": "L1-unknown-material",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/regions/0/materials/0",
+            "value": "missing"
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 1,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": [
+          {
+            "code": "material.unknown",
+            "message": "Unknown material ID.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/regions/0/materials/0",
+              "span": {
+                "start": 1901,
+                "end": 1910
+              }
+            },
+            "severity": "error",
+            "outcome": "fail",
+            "rule": "L-1",
+            "entity": {
+              "kind": "regions",
+              "id": "shore"
+            },
+            "related": [],
+            "details": {
+              "value": "missing"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "L3-equal-to-palette-length",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/color",
+            "value": 5
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 1,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": [
+          {
+            "code": "palette.index_out_of_range",
+            "message": "Palette index is outside the palette.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/materials/0/color",
+              "span": {
+                "start": 107,
+                "end": 108
+              }
+            },
+            "severity": "error",
+            "outcome": "fail",
+            "rule": "L-3",
+            "entity": {
+              "kind": "materials",
+              "id": "sand"
+            },
+            "related": [
+              {
+                "path": "data/world.json",
+                "pointer": "/palettes/0",
+                "span": {
+                  "start": 817,
+                  "end": 964
+                }
+              }
+            ],
+            "details": {
+              "index": "5",
+              "length": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "L3-last-valid-index",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/color",
+            "value": 4
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": []
+      }
+    },
+    {
+      "id": "L5-orphan-region-reference-is-not-reaction-or-spawn",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/spawn_rules",
+            "value": [
+              {
+                "id": "beach",
+                "material": "sand",
+                "region": "shore",
+                "weight": 1
+              },
+              {
+                "id": "sea",
+                "material": "water",
+                "region": "shore",
+                "weight": 1
+              }
+            ]
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 0,
+          "warnings": 1,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": [
+          {
+            "code": "material.orphan",
+            "message": "Material is never produced, spawned, or used in a reaction.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/materials/1",
+              "span": {
+                "start": 177,
+                "end": 326
+              }
+            },
+            "severity": "warning",
+            "outcome": "fail",
+            "rule": "L-5",
+            "entity": {
+              "kind": "materials",
+              "id": "stone"
+            },
+            "related": [],
+            "details": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "L5-external-unknown",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/spawn_rules",
+            "value": [
+              {
+                "id": "beach",
+                "material": "sand",
+                "region": "shore",
+                "weight": 1
+              },
+              {
+                "id": "sea",
+                "material": "water",
+                "region": "shore",
+                "weight": 1
+              }
+            ]
+          }
+        ],
+        "schemaEdits": [
+          {
+            "pointer": "/properties/materials/x-pixorra/external",
+            "value": true
+          }
+        ],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "e89826ed8804873b8bccb5d8d9da2bf961dfc1cc3851513638774e545377014d"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 1
+        },
+        "diagnostics": [
+          {
+            "code": "material.external_usage",
+            "message": "Game code may use this material.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/materials/1",
+              "span": {
+                "start": 177,
+                "end": 326
+              }
+            },
+            "severity": "warning",
+            "outcome": "unknown",
+            "rule": "L-5",
+            "entity": {
+              "kind": "materials",
+              "id": "stone"
+            },
+            "related": [],
+            "details": {
+              "reason": "external"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "L5-item-false-overrides-category",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/spawn_rules",
+            "value": [
+              {
+                "id": "beach",
+                "material": "sand",
+                "region": "shore",
+                "weight": 1
+              },
+              {
+                "id": "sea",
+                "material": "water",
+                "region": "shore",
+                "weight": 1
+              }
+            ]
+          },
+          {
+            "pointer": "/materials/1/codeUse",
+            "value": false
+          }
+        ],
+        "schemaEdits": [
+          {
+            "pointer": "/properties/materials/x-pixorra/external",
+            "value": true
+          },
+          {
+            "pointer": "/properties/materials/items/properties/codeUse",
+            "value": {
+              "type": "boolean",
+              "x-pixorra": {
+                "externalMarker": "external"
+              }
+            }
+          }
+        ],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "685e72d80cae656b5e0443dfb6ffc4f8daece49dd2d1682706c43b7a11968e31"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 0,
+          "warnings": 1,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": [
+          {
+            "code": "material.orphan",
+            "message": "Material is never produced, spawned, or used in a reaction.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/materials/1",
+              "span": {
+                "start": 177,
+                "end": 350
+              }
+            },
+            "severity": "warning",
+            "outcome": "fail",
+            "rule": "L-5",
+            "entity": {
+              "kind": "materials",
+              "id": "stone"
+            },
+            "related": [],
+            "details": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "L5-item-true",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/spawn_rules",
+            "value": [
+              {
+                "id": "beach",
+                "material": "sand",
+                "region": "shore",
+                "weight": 1
+              },
+              {
+                "id": "sea",
+                "material": "water",
+                "region": "shore",
+                "weight": 1
+              }
+            ]
+          },
+          {
+            "pointer": "/materials/1/codeUse",
+            "value": true
+          }
+        ],
+        "schemaEdits": [
+          {
+            "pointer": "/properties/materials/x-pixorra/external",
+            "value": true
+          },
+          {
+            "pointer": "/properties/materials/items/properties/codeUse",
+            "value": {
+              "type": "boolean",
+              "x-pixorra": {
+                "externalMarker": "external"
+              }
+            }
+          }
+        ],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "685e72d80cae656b5e0443dfb6ffc4f8daece49dd2d1682706c43b7a11968e31"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 1
+        },
+        "diagnostics": [
+          {
+            "code": "material.external_usage",
+            "message": "Game code may use this material.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/materials/1",
+              "span": {
+                "start": 177,
+                "end": 349
+              }
+            },
+            "severity": "warning",
+            "outcome": "unknown",
+            "rule": "L-5",
+            "entity": {
+              "kind": "materials",
+              "id": "stone"
+            },
+            "related": [],
+            "details": {
+              "reason": "external"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "L14-wrong-density-type",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/density",
+            "value": "bad"
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": []
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [],
+        "counts": {
+          "errors": 1,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": [
+          {
+            "code": "type.mismatch",
+            "message": "Expected number.",
+            "location": {
+              "path": "data/world.json",
+              "pointer": "/materials/0/density",
+              "span": {
+                "start": 62,
+                "end": 67
+              }
+            },
+            "severity": "error",
+            "outcome": "fail",
+            "rule": "L-14",
+            "entity": null,
+            "related": [],
+            "details": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "disabled-L1",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/regions/0/materials/0",
+            "value": "missing"
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": [
+          "L-1"
+        ]
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [
+          "L-1"
+        ],
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": []
+      }
+    },
+    {
+      "id": "disabled-L14",
+      "phase": 2,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/density",
+            "value": "bad"
+          }
+        ],
+        "schemaEdits": [],
+        "disabledRules": [
+          "L-14"
+        ]
+      },
+      "expect": {
+        "reportVersion": 1,
+        "schema": {
+          "id": "urn:pixorra:example:falling-sand",
+          "version": "1.0.0",
+          "hash": "292598cfef2df2ec47ad03d73b1a0557c8bc13a9fcbf1a71c6bd610d082358b2"
+        },
+        "disabledRules": [
+          "L-14"
+        ],
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "hints": 0,
+          "infos": 0,
+          "unknowns": 0
+        },
+        "diagnostics": []
+      }
+    }
+  ]
+}

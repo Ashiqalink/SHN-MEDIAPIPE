@@ -1,0 +1,126 @@
+{
+  "materials": [
+    {
+      "id": "sand",
+      "density": 1.6,
+      "palette": "main",
+      "color": 0,
+      "properties": {
+        "temperature": 20
+      }
+    },
+    {
+      "id": "stone",
+      "density": 2.7,
+      "palette": "main",
+      "color": 1,
+      "properties": {
+        "temperature": 20
+      }
+    },
+    {
+      "id": "water",
+      "density": 1,
+      "palette": "main",
+      "color": 2,
+      "properties": {
+        "temperature": 20
+      }
+    },
+    {
+      "id": "steam",
+      "density": 0.01,
+      "palette": "main",
+      "color": 3,
+      "properties": {
+        "temperature": 110
+      }
+    },
+    {
+      "id": "glass",
+      "density": 2.5,
+      "palette": "main",
+      "color": 4,
+      "properties": {
+        "temperature": 20
+      }
+    }
+  ],
+  "palettes": [
+    {
+      "id": "main",
+      "colors": [
+        "#d2b46c",
+        "#727b83",
+        "#3388bb",
+        "#c3e3ed",
+        "#89b5aa"
+      ]
+    }
+  ],
+  "reactions": [
+    {
+      "id": "boil",
+      "inputs": [
+        "water"
+      ],
+      "outputs": [
+        "steam"
+      ],
+      "condition": "temperature > 100",
+      "priority": 0
+    },
+    {
+      "id": "melt_sand",
+      "inputs": [
+        "sand"
+      ],
+      "outputs": [
+        "glass"
+      ],
+      "condition": "temperature > 1700",
+      "priority": 1
+    }
+  ],
+  "spawn_rules": [
+    {
+      "id": "beach",
+      "material": "sand",
+      "region": "shore",
+      "weight": 1
+    },
+    {
+      "id": "sea",
+      "material": "water",
+      "region": "shore",
+      "weight": 1
+    },
+    {
+      "id": "bedrock",
+      "material": "stone",
+      "region": "shore",
+      "weight": 1
+    }
+  ],
+  "regions": [
+    {
+      "id": "shore",
+      "min": [
+        0,
+        0,
+        0
+      ],
+      "max": [
+        64,
+        64,
+        64
+      ],
+      "exclusive": true,
+      "materials": [
+        "sand",
+        "stone",
+        "water"
+      ]
+    }
+  ]
+}

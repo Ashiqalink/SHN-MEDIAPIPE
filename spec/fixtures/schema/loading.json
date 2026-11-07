@@ -1,0 +1,209 @@
+{
+  "fixtureVersion": 1,
+  "area": "schema",
+  "cases": [
+    {
+      "id": "valid-falling-sand",
+      "phase": 1,
+      "input": {},
+      "expect": {
+        "raises": false,
+        "codes": [
+          "schema.history_missing"
+        ],
+        "materials": [
+          "sand",
+          "stone",
+          "water",
+          "steam",
+          "glass"
+        ]
+      }
+    },
+    {
+      "id": "unsupported-contract",
+      "phase": 1,
+      "input": {
+        "schemaEdits": [
+          {
+            "pointer": "/x-pixorra/contractVersion",
+            "value": "2.0.0"
+          }
+        ]
+      },
+      "expect": {
+        "raises": true,
+        "codes": [
+          "schema.contract_unsupported"
+        ]
+      }
+    },
+    {
+      "id": "unsupported-keyword",
+      "phase": 1,
+      "input": {
+        "schemaEdits": [
+          {
+            "pointer": "/properties/materials/items/properties/id/pattern",
+            "value": ".*"
+          }
+        ]
+      },
+      "expect": {
+        "raises": true,
+        "codes": [
+          "schema.unsupported_keyword"
+        ]
+      }
+    },
+    {
+      "id": "invalid-type-declaration",
+      "phase": 1,
+      "input": {
+        "schemaEdits": [
+          {
+            "pointer": "/properties/materials/items/properties/density/type",
+            "value": "float"
+          }
+        ]
+      },
+      "expect": {
+        "raises": true,
+        "codes": [
+          "schema.invalid"
+        ]
+      }
+    },
+    {
+      "id": "bad-role-pointer",
+      "phase": 1,
+      "input": {
+        "schemaEdits": [
+          {
+            "pointer": "/properties/materials/x-pixorra/roles/properties",
+            "value": "/missing"
+          }
+        ]
+      },
+      "expect": {
+        "raises": true,
+        "codes": [
+          "schema.binding_invalid"
+        ]
+      }
+    },
+    {
+      "id": "escaping-binding",
+      "phase": 1,
+      "input": {
+        "schemaEdits": [
+          {
+            "pointer": "/x-pixorra/bindings/materials/path",
+            "value": "../world.json"
+          }
+        ]
+      },
+      "expect": {
+        "raises": true,
+        "codes": [
+          "schema.binding_invalid"
+        ]
+      }
+    },
+    {
+      "id": "undeclared-content",
+      "phase": 1,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/typo",
+            "value": true
+          }
+        ]
+      },
+      "expect": {
+        "raises": false,
+        "codes": [
+          "schema.history_missing",
+          "content.undeclared_field"
+        ]
+      }
+    },
+    {
+      "id": "boolean-is-not-number",
+      "phase": 1,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/density",
+            "value": true
+          }
+        ]
+      },
+      "expect": {
+        "raises": false,
+        "codes": [
+          "schema.history_missing",
+          "type.mismatch"
+        ]
+      }
+    },
+    {
+      "id": "invalid-palette-index-type",
+      "phase": 1,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/0/color",
+            "value": 1.5
+          }
+        ]
+      },
+      "expect": {
+        "raises": false,
+        "codes": [
+          "schema.history_missing",
+          "type.mismatch"
+        ]
+      }
+    },
+    {
+      "id": "unbound-wrapper-field",
+      "phase": 1,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/unbound",
+            "value": []
+          }
+        ]
+      },
+      "expect": {
+        "raises": false,
+        "codes": [
+          "schema.history_missing",
+          "content.undeclared_field"
+        ]
+      }
+    },
+    {
+      "id": "duplicate-material-id",
+      "phase": 1,
+      "input": {
+        "contentEdits": [
+          {
+            "pointer": "/materials/1/id",
+            "value": "sand"
+          }
+        ]
+      },
+      "expect": {
+        "raises": false,
+        "codes": [
+          "schema.history_missing",
+          "content.duplicate_id"
+        ]
+      }
+    }
+  ]
+}

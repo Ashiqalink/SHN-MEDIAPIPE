@@ -1,0 +1,74 @@
+{
+  "fixtureVersion": 1,
+  "area": "roundtrip",
+  "cases": [
+    {
+      "id": "bom-crlf",
+      "phase": 2,
+      "input": {
+        "source": "bom-crlf.json",
+        "edit": {
+          "pointer": "/n",
+          "value": 3
+        }
+      },
+      "expect": {
+        "noOpByteEquality": true,
+        "changedPointer": "/n",
+        "replacement": "3",
+        "untouchedBytesEqual": true
+      }
+    },
+    {
+      "id": "tabs",
+      "phase": 2,
+      "input": {
+        "source": "tabs.json",
+        "edit": {
+          "pointer": "/n",
+          "value": 3
+        }
+      },
+      "expect": {
+        "noOpByteEquality": true,
+        "changedPointer": "/n",
+        "replacement": "3",
+        "untouchedBytesEqual": true
+      }
+    },
+    {
+      "id": "compact",
+      "phase": 2,
+      "input": {
+        "source": "compact.json",
+        "edit": {
+          "pointer": "/n",
+          "value": 3
+        }
+      },
+      "expect": {
+        "noOpByteEquality": true,
+        "changedPointer": "/n",
+        "replacement": "3",
+        "untouchedBytesEqual": true
+      }
+    },
+    {
+      "id": "unicode",
+      "phase": 2,
+      "input": {
+        "source": "unicode.json",
+        "edit": {
+          "pointer": "/n",
+          "value": 3
+        }
+      },
+      "expect": {
+        "noOpByteEquality": true,
+        "changedPointer": "/n",
+        "replacement": "3",
+        "untouchedBytesEqual": true
+      }
+    }
+  ]
+}

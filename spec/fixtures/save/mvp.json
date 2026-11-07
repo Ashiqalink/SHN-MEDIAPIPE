@@ -1,0 +1,13 @@
+{
+  "fixtureVersion": 1,
+  "area": "save",
+  "cases": [
+    {"id": "noop", "phase": 2, "input": {"mutation": false}, "expect": {"status": "unchanged", "previewRequired": false, "diskState": "original", "historyExists": false, "tempFiles": 0, "fileStatuses": []}},
+    {"id": "first-preview", "phase": 2, "input": {"mutation": true}, "expect": {"status": "save.preview_required", "previewRequired": true, "diskState": "original", "historyExists": false, "tempFiles": 0, "fileStatuses": []}},
+    {"id": "approved-save", "phase": 2, "input": {"mutation": true, "acknowledge": true}, "expect": {"status": "saved", "previewRequired": true, "diskState": "candidate", "historyExists": true, "tempFiles": 0, "fileStatuses": ["saved"]}},
+    {"id": "external-conflict", "phase": 2, "input": {"mutation": true, "acknowledge": true, "fault": "conflict"}, "expect": {"status": "save.conflict", "previewRequired": true, "diskState": "external", "historyExists": false, "tempFiles": 0, "fileStatuses": []}},
+    {"id": "replace-failure", "phase": 2, "input": {"mutation": true, "acknowledge": true, "fault": "replace"}, "expect": {"status": "failed", "previewRequired": true, "diskState": "original", "historyExists": false, "tempFiles": 0, "fileStatuses": ["save.replace_failed"]}},
+    {"id": "fsync-failure", "phase": 2, "input": {"mutation": true, "acknowledge": true, "fault": "fsync"}, "expect": {"status": "failed", "previewRequired": true, "diskState": "original", "historyExists": false, "tempFiles": 0, "fileStatuses": ["save.write_failed"]}},
+    {"id": "directory-sync-failure", "phase": 2, "input": {"mutation": true, "acknowledge": true, "fault": "directory-sync"}, "expect": {"status": "saved_durability_unknown", "previewRequired": true, "diskState": "candidate", "historyExists": true, "tempFiles": 0, "fileStatuses": ["saved_durability_unknown"]}}
+  ]
+}

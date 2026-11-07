@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pixorra:example:falling-sand",
+  "type": "object",
+  "properties": {
+    "materials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "density": {
+            "type": "number",
+            "minimum": 0
+          },
+          "palette": {
+            "type": "string",
+            "x-pixorra": {
+              "reference": {
+                "kind": "palettes"
+              }
+            }
+          },
+          "color": {
+            "type": "integer",
+            "minimum": 0,
+            "x-pixorra": {
+              "paletteIndex": {
+                "paletteField": "/palette"
+              }
+            }
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "temperature": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "temperature"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "density",
+          "palette",
+          "color",
+          "properties"
+        ],
+        "additionalProperties": false
+      },
+      "x-pixorra": {
+        "kind": "materials",
+        "idField": "/id",
+        "roles": {
+          "properties": "/properties",
+          "paletteIndex": "/color"
+        }
+      }
+    },
+    "palettes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "colors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "colors"
+        ],
+        "additionalProperties": false
+      },
+      "x-pixorra": {
+        "kind": "palettes",
+        "idField": "/id",
+        "roles": {
+          "colors": "/colors"
+        },
+        "max_size": 16
+      }
+    },
+    "reactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-pixorra": {
+                "reference": {
+                  "kind": "materials"
+                }
+              }
+            },
+            "minItems": 1
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-pixorra": {
+                "reference": {
+                  "kind": "materials"
+                }
+              }
+            }
+          },
+          "condition": {
+            "type": "string",
+            "x-pixorra": {
+              "expression": true
+            }
+          },
+          "priority": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "inputs",
+          "outputs",
+          "condition",
+          "priority"
+        ],
+        "additionalProperties": false
+      },
+      "x-pixorra": {
+        "kind": "reactions",
+        "idField": "/id",
+        "roles": {
+          "inputs": "/inputs",
+          "outputs": "/outputs",
+          "condition": "/condition",
+          "priority": "/priority"
+        }
+      }
+    },
+    "spawn_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "material": {
+            "type": "string",
+            "x-pixorra": {
+              "reference": {
+                "kind": "materials"
+              }
+            }
+          },
+          "region": {
+            "type": "string",
+            "x-pixorra": {
+              "reference": {
+                "kind": "regions"
+              }
+            }
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "material",
+          "region",
+          "weight"
+        ],
+        "additionalProperties": false
+      },
+      "x-pixorra": {
+        "kind": "spawn_rules",
+        "idField": "/id",
+        "roles": {
+          "material": "/material",
+          "region": "/region",
+          "weight": "/weight"
+        }
+      }
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "min": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "max": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "exclusive": {
+            "type": "boolean"
+          },
+          "materials": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-pixorra": {
+                "reference": {
+                  "kind": "materials"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "min",
+          "max",
+          "exclusive",
+          "materials"
+        ],
+        "additionalProperties": false
+      },
+      "x-pixorra": {
+        "kind": "regions",
+        "idField": "/id",
+        "roles": {
+          "min": "/min",
+          "max": "/max",
+          "exclusive": "/exclusive",
+          "materials": "/materials"
+        }
+      }
+    }
+  },
+  "required": [
+    "materials",
+    "palettes",
+    "reactions",
+    "spawn_rules",
+    "regions"
+  ],
+  "additionalProperties": false,
+  "x-pixorra": {
+    "contractVersion": "1.0.0",
+    "schemaVersion": "1.0.0",
+    "bindings": {
+      "materials": {
+        "path": "data/world.json",
+        "pointer": "/materials"
+      },
+      "palettes": {
+        "path": "data/world.json",
+        "pointer": "/palettes"
+      },
+      "reactions": {
+        "path": "data/world.json",
+        "pointer": "/reactions"
+      },
+      "spawn_rules": {
+        "path": "data/world.json",
+        "pointer": "/spawn_rules"
+      },
+      "regions": {
+        "path": "data/world.json",
+        "pointer": "/regions"
+      }
+    },
+    "expressionContext": {
+      "temperature": {
+        "type": "number",
+        "source": "subject",
+        "pointer": "/temperature"
+      },
+      "neighbor.material": {
+        "type": "string",
+        "source": "neighbor",
+        "pointer": "/material"
+      }
+    }
+  }
+}
