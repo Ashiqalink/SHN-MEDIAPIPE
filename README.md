@@ -1,9 +1,13 @@
 # SHN-MEDIAPIPE
 ![Project Cover](assets/cover.jpeg)
-#  [Your Project Name]
+#  Pixorra
 
 ### 💡 What's the idea?
-[Tell us what you built and what it does. Keep it short!]
+Pixorra is a local tool for authoring and checking the JSON behind voxel-and-pixel games. Materials, reactions, spawn rules, regions, and quests are edited as visual node graphs and saved in the game’s own JSON files.
+
+Its linter catches broken references, such as misspelled material IDs and out-of-range palette indices, before the game runs. It also flags orphaned materials, reaction cycles, and dead-end quest stages.
+
+The tool is schema-driven. Saves preserve unchanged content byte-for-byte, and the core runs headlessly for scripts, CI, and seeded batch simulations.
 
 ### 🌐 Check it out!
 - **Live Website:** [Drop your link here / N/A]
