@@ -13,4 +13,4 @@ dependencies = ["jsonschema>=4.18,<5"]
 pixorra = "core.__main__:main"
 
 [tool.setuptools]
-packages = ["core"]
+packages = ["core", "server"]

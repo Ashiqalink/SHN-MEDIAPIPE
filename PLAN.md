@@ -160,3 +160,19 @@ local graph authoring with a web API and editor.
   Headless suite: 53 tests pass on Windows/Python 3.13. Python 3.11 syntax is
   checked; execution on other runtimes/platforms remains unverified. Per-file
   atomicity is supported; batch atomicity and OS-wide writer exclusion are not.
+
+- Phase 3 (implemented, not ticked): [local API](docs/editor.md) plus the
+  React/TypeScript/React Flow/Zustand editor. Six API-level tests cover the
+  exit sequence end to end through the HTTP layer: open the five-material
+  sample, author and wire a sixth material and reaction across three top-level
+  keys, mandatory first-save preview with a minimal diff, preview-gated
+  commit, reopen clean, the reverse multi-key save back to five materials
+  byte-identical, conflict blocking after an external edit, stale-plan
+  invalidation on reload, invalid-content rejection, and Decimal round trips.
+  Headless suite: 59 tests pass on Windows/Python 3.13. `npm run build`
+  type-checks the editor bundle (React Flow graph, minimap, typed connected
+  ports, schema-driven inspector with resolved palette pickers, undo/redo,
+  dirty state, preview modal, lint panel with unknowns and disabled rules).
+  Live smoke: API on 127.0.0.1:8799 and the dev-served UI verified together.
+  Remaining before ticking: a human-drive run of the flows in a real browser
+  and the measured under-five-minute authoring target.

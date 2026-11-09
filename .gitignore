@@ -34,3 +34,4 @@ Desktop.ini
 
 # Interrupted Pixorra save temporary files
 .pixorra-*.tmp
+node_modules/

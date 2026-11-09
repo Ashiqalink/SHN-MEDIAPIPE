@@ -330,7 +330,16 @@ class ProjectTests(unittest.TestCase):
         self.assertEqual(run.returncode, 0, run.stderr)
         result = json.loads(run.stdout)
         self.assertEqual(result["schema"]["version"], "1.0.0")
-        self.assertFalse(any(name.split(".")[0] in ("fastapi", "server", "web", "zustand") for name in sys.modules))
+        # The core subprocess itself must not import UI/server machinery, even
+        # when unrelated test modules (server tests) share this process.
+        child = subprocess.run(
+            [sys.executable, "-c",
+             "import sys, core.__main__; "
+             "print(sorted(n for n in sys.modules "
+             "if n.split('.')[0] in ('fastapi', 'server', 'web', 'zustand')))"],
+            cwd=ROOT, capture_output=True, text=True, check=False)
+        self.assertEqual(child.returncode, 0, child.stderr)
+        self.assertEqual(json.loads(child.stdout), [])
         self.content_path.write_bytes(b"not json")
         run = subprocess.run([sys.executable, "-m", "core", str(self.project)], cwd=ROOT,
                              capture_output=True, text=True, check=False)

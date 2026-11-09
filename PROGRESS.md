@@ -1,10 +1,10 @@
 # Pixorra progress
 
-Last updated: 2026-11-07, after phase 2 implementation and final verification.
+Last updated: 2026-11-10, after phase 3 implementation and API verification.
 
-Now: Phases 0, 1 and 2 complete. Headless loading, verified minimal-diff saves
-and the four MVP lint rules are available.
-Next: Phase 3 - local graph authoring, web API and editor integration (not started).
+Now: Phase 3 implemented (server + editor). Browser-drive run and the
+under-five-minute authoring measurement remain before ticking.
+Next: Perform the UI exit run in a real browser, measure timing, tick phase 3.
 Blocked: None.
 
 - [x] 0 - Contracts and decisions
@@ -38,12 +38,16 @@ Implemented entry points: [byte editing](core/editing.py),
 [CLI](core/__main__.py). Acceptance checks are in
 [phase 2 tests](tests/test_phase2.py), with shared
 [lint reports](spec/fixtures/lint/mvp.json) and
-[save scenarios](spec/fixtures/save/mvp.json).
+[save scenarios](spec/fixtures/save/mvp.json). Phase 3 adds the
+[local API](server/app.py) and [editor](web/) with
+[phase 3 tests](tests/test_phase3.py); see [editor docs](docs/editor.md).
 
-Phase 3 starts with the local FastAPI wrapper and React/TypeScript graph editor.
-Its exit checks include authoring, saving and reopening five materials, graph
-undo/redo, required save previews, conflict handling and minimal diffs. The
-under-five-minute authoring target remains to be measured in that phase.
+Phase 3 status: the local FastAPI wrapper and the React/TypeScript React Flow
+editor are implemented; the exit flow (author, wire, save, reopen, undo/redo,
+previews, conflicts, minimal diffs) is proven at the API layer by
+tests/test_phase3.py (59 tests pass overall). Two manual items remain:
+running the same flow by hand in a browser and measuring the
+under-five-minute authoring target; tick phase 3 only after that run.
 
 See [save API](docs/saving.md), [lint rules](docs/lint.md),
 [contracts](README.md), [shared fixtures](spec/README.md) and [PLAN.md](PLAN.md).
